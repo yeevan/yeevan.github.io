@@ -1,52 +1,14 @@
 <!DOCTYPE html>
-<!-- saved from url=(0057)http://www.w3school.com.cn/tiy/t.asp?f=jsrf_string_length -->
+<!-- saved from url=(0025)http://evan.lephones.net/ -->
 <html lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="gb2312">
 <meta name="robots" content="all">
 <meta name="author" content="www.lephones.net">
 
-<link rel="stylesheet" type="text/css" href="./tc.css">
+<link rel="stylesheet" type="text/css" href="./在线求行列式_files/tc.css">
 
 <title>在线求行列式</title>
-</head>
-
-<body id="editor">
-
-<div id="wrapper">
-
-<div id="header">
-<h1>在线求行列式</h1>
-<div id="ad">
-
-</div>
-</div>
-
-
-<div id="butt">
-<input type="button" value="提交代码" onclick="submitTryit()">
-</div>
-
-<div id="CodeArea">
-<h2>编辑您数字：</h2>
-<textarea id="TestCode" wrap="logical">
-1 2 3
-4 5 6
-7 8 9
-</textarea>
-</div>
-
-
-<div id="result">
-<h2>查看结果:</h2>
-<div id="value"></div>
-</div>
-
-<div id="footer">
-<p>每个数之间用空格分开<a href="http://WWW.LEPHONES.NET" title="在线求行列式">WWW.LEPHONES.NET</a></p>
-</div>
-
-</div>
-
+<meta name="chromesniffer" id="chromesniffer_meta" content="{}">
 <script type="text/javascript">
 function submitTryit()
 {
@@ -72,7 +34,7 @@ function submitTryit()
 
 	
 	for(var row = 0 ; row<length-1; row++){
-		var tag = swipeLine(data,row,row+1);
+		var tag = swapLine(data,row,row+1);
 		if(tag){
 		continue;
 		} 
@@ -88,21 +50,23 @@ function submitTryit()
 		value *= data[i][i] ;
 		
 	}
-	document.getElementById("value").textContent = (value);
+	document.getElementById("value").textContent = (Math.round(value));
 
 }
 
 function calLine(line,row ,data){
 	var rule = ((data[line][row]) / data[row][row]);
+	var preHead = data[row][row];
+	var lineHead = data[line][row];
 	for(var i = row ; i < data.length; i++){
-		var a =  Math.round( data[row][i] * -rule);
+		var a = data[row][i] * -lineHead / preHead;
 		var b = data[line][i];
 		data[line][i] = a + b;
-
+		console.log(a);
 	}
 }
 
-function swipeLine(data,line ,nextline){
+function swapLine(data,line ,nextline){
 		
 		if(data[line][line]== 0){
 			
@@ -115,7 +79,7 @@ function swipeLine(data,line ,nextline){
 				return true;
 			}
 			
-			swipeLine(data,line,nextline);
+			swapLine(data,line,nextline);
 			
 		}
 		
@@ -123,6 +87,46 @@ function swipeLine(data,line ,nextline){
 }
 
 </script>
+</head>
+
+<body id="editor">
+
+<div id="wrapper">
+
+<div id="header">
+<h1>在线求行列式</h1>
+<div id="ad">
+
+</div>
+</div>
+
+
+<div id="butt">
+<input type="button" value="提交代码" onclick="submitTryit()">
+</div>
+
+<div id="CodeArea">
+<h2>编辑您数字：</h2>
+<textarea id="TestCode" wrap="logical">1 2 3
+4 5 6
+7 8 9
+</textarea>
+</div>
+
+
+<div id="result">
+<h2>查看结果:</h2>
+<div id="value"></div>
+</div>
+
+<div id="footer">
+<p>每个数之间用空格分开<a href="http://www.lephones.net/" title="在线求行列式">WWW.LEPHONES.NET</a></p>
+</div>
+
+</div>
+
+
+
 
 
 </body></html>
