@@ -8,10 +8,12 @@
 <link rel="stylesheet" type="text/css" href="./tc.css">
 
 <title>在线求行列式</title>
-<meta name="chromesniffer" id="chromesniffer_meta" content="{}">
+
 <script type="text/javascript">
+var sign = false;
 function submitTryit()
 {
+	sign = false;
 	var t=document.getElementById("TestCode").value;
 	var arrays = t.split("\n");
 	var length = arrays.length;
@@ -46,10 +48,14 @@ function submitTryit()
 	
 
 	var value = data[0][0];
+	if(sign){
+		value = -value;
+	}
 	for(var i = 1; i < length; i++){
 		value *= data[i][i] ;
 		
 	}
+	
 	document.getElementById("value").textContent = (Math.round(value));
 
 }
@@ -62,28 +68,41 @@ function calLine(line,row ,data){
 		var a = data[row][i] * -lineHead / preHead;
 		var b = data[line][i];
 		data[line][i] = a + b;
+		
+		console.log(preHead);
+		console.log(lineHead);
+		console.log(b);
+		console.log(data[line][i]);
+		for(var j = 1; j < length; j++){
+		console.log(data[j]);
+		
+	}
+		console.log("-------------------------");
 	}
 }
 
 function swapLine(data,line ,nextline){
-		
+	//	console.log(line + " " + nextline);
 		if(data[line][line]== 0){
-			
+			sign = !sign;
 			var temp = data[line]
 			data[line] = data[nextline];
-			data[nextline] = data[line];
+			data[nextline] = temp;
 			nextline ++;
 			if(nextline == data.length && data[line][line] == 0)
 			{
 				return true;
+			}else{
+				return swapLine(data,line,nextline);
 			}
 			
-			swapLine(data,line,nextline);
+			
 			
 		}
 		
 		return false;
 }
+
 
 </script>
 </head>
