@@ -69,20 +69,11 @@ function calLine(line,row ,data){
 		var b = data[line][i];
 		data[line][i] = a + b;
 		
-		console.log(preHead);
-		console.log(lineHead);
-		console.log(b);
-		console.log(data[line][i]);
-		for(var j = 1; j < length; j++){
-		console.log(data[j]);
-		
-	}
-		console.log("-------------------------");
 	}
 }
 
 function swapLine(data,line ,nextline){
-	//	console.log(line + " " + nextline);
+
 		if(data[line][line]== 0){
 			sign = !sign;
 			var temp = data[line]
