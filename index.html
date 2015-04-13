@@ -1,46 +1,128 @@
 <!DOCTYPE html>
-<html>
+<!-- saved from url=(0057)http://www.w3school.com.cn/tiy/t.asp?f=jsrf_string_length -->
+<html lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="gb2312">
+<meta name="robots" content="all">
+<meta name="author" content="www.lephones.net">
 
-  <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="description" content="Yeevan.GitHub.io : ">
+<link rel="stylesheet" type="text/css" href="./tc.css">
 
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+<title>在线求行列式</title>
+</head>
 
-    <title>Yeevan.GitHub.io</title>
-  </head>
+<body id="editor">
 
-  <body>
+<div id="wrapper">
 
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/yeevan">View on GitHub</a>
+<div id="header">
+<h1>在线求行列式</h1>
+<div id="ad">
 
-          <h1 id="project_title">Yeevan.GitHub.io</h1>
-          <h2 id="project_tagline"></h2>
+</div>
+</div>
 
-        </header>
-    </div>
 
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
-        <p>HELLO WORLD</p>
+<div id="butt">
+<input type="button" value="提交代码" onclick="submitTryit()">
+</div>
 
-<p>EVAN</p>
-      </section>
-    </div>
+<div id="CodeArea">
+<h2>编辑您数字：</h2>
+<textarea id="TestCode" wrap="logical">
+1 2 3
+4 5 6
+7 8 9
+</textarea>
+</div>
 
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
-        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
-      </footer>
-    </div>
 
-    
+<div id="result">
+<h2>查看结果:</h2>
+<div id="value"></div>
+</div>
 
-  </body>
-</html>
+<div id="footer">
+<p>每个数之间用空格分开<a href="http://WWW.LEPHONES.NET" title="在线求行列式">WWW.LEPHONES.NET</a></p>
+</div>
+
+</div>
+
+<script type="text/javascript">
+function submitTryit()
+{
+	var t=document.getElementById("TestCode").value;
+	var arrays = t.split("\n");
+	var length = arrays.length;
+	
+	var data = new Array();
+
+	for(var i = 0 ; i <arrays.length; i++ ){
+		if(arrays[i].length != 0){
+			var lineArray = arrays[i].split(" ");
+			for(var j = 0 ; j<lineArray.length;j++){
+				lineArray[j] = parseInt(lineArray[j]);
+			}
+			data[i] = lineArray;
+			
+		}else{
+		length--
+		}
+
+	}
+
+	
+	for(var row = 0 ; row<length-1; row++){
+		var tag = swipeLine(data,row,row+1);
+		if(tag){
+		continue;
+		} 
+		for(var line = row + 1 ;line <length ; line++){	
+			calLine(line,row ,data );
+		} 
+	}
+	
+	
+
+	var value = data[0][0];
+	for(var i = 1; i < length; i++){
+		value *= data[i][i] ;
+		
+	}
+	document.getElementById("value").textContent = (value);
+
+}
+
+function calLine(line,row ,data){
+	var rule = ((data[line][row]) / data[row][row]);
+	for(var i = row ; i < data.length; i++){
+		var a =  Math.round( data[row][i] * -rule);
+		var b = data[line][i];
+		data[line][i] = a + b;
+
+	}
+}
+
+function swipeLine(data,line ,nextline){
+		
+		if(data[line][line]== 0){
+			
+			var temp = data[line]
+			data[line] = data[nextline];
+			data[nextline] = data[line];
+			nextline ++;
+			if(nextline == data.length && data[line][line] == 0)
+			{
+				return true;
+			}
+			
+			swipeLine(data,line,nextline);
+			
+		}
+		
+		return false;
+}
+
+</script>
+
+
+</body></html>
